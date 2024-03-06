@@ -1,0 +1,213 @@
+% arara: lualatex
+% arara: lualatex
+% arara: clean: { extensions: ['aux', 'toc', 'lof', 'lot', 'bbl', 'blg', 'idx', 'ind', 'fna', 'fnb', 'synctex.gz', 'dvi',out] }
+%'log'
+
+\documentclass[10pt,a4paper]{article}
+\usepackage
+%[landscape] % Para pagina em modo paisagem.
+{geometry}
+\geometry{a4paper,
+	left=30mm,
+	right=20mm,
+	top=35mm,
+	bottom=20mm,
+	headheight = 35mm,
+	footskip=14mm
+}
+%--
+% *** LANGUAGE PACKAGES ***
+\usepackage[english,% idioma adicional para hifenização
+spanish, % idioma adicional para hifenização
+brazil              % Tradução para Pt-br, afeta a formatação de datas, nomes de capítulos, índices, entre outros.
+]{babel}
+%\usepackage[utf8]{inputenc} % Permite que o documento seja escrito com caracteres acentuados diretamente no código-fonte, usando a codificação UTF-8. ................................................................. Acentuação
+\usepackage[T1]{fontenc} % Define a codificação de fonte usada no documentoUse 8-bit encoding that has 256 glyphs .................................................................... Fontes melhoradas
+
+\usepackage[most]{tcolorbox}
+\usepackage{boxsets}
+\usepackage{multicol}
+\usepackage{lipsum}  % Adicionei o pacote lipsum para gerar texto de preenchimento
+\usepackage{fontawesome5} %Fornece ícones da FontAwesome5
+\usepackage{flushend} % Balances the columns of the last page
+
+
+% inicio %%%%%%%%%%%%%%%%%%%%%%%%
+\newtcolorbox{wineBox2}[1]{
+	enhanced, % configurações avançadas para o tcolorbox
+	colback=white,
+	colframe=gray,
+	coltitle=black,
+	fonttitle=\bfseries\LARGE,
+	detach title,
+	boxrule=2pt,
+	leftrule=0pt,
+	top=1mm,
+	attach title to upper={\par},
+	sharp corners,
+	borderline west={5pt}{0pt}{red!70!blue},
+	title=#1
+}
+% fim %%%%%%%%%%%%%%%%%%%%%%%
+
+\tcbset{
+	base/.style={
+		enhanced,
+		colback=red!5!white,
+		colframe=red!75!black,
+		drop fuzzy shadow,
+		colback=gray!4,
+		coltitle=black,
+		fonttitle=\bfseries\LARGE,
+		detach title,
+		boxrule=2pt,
+		leftrule=0pt,
+		top=1mm,
+		attach title to upper={\par},
+		sharp corners,
+		borderline west={5pt}{0pt}{red!70!blue},
+		%borderline north={5pt}{0pt}{red!70!blue},
+		boxrule=0pt,
+		title=#1
+	}
+}
+
+
+\begin{document}
+	\subsection[short]{Wine box}
+	\begin{wineBox}{Tip Box Title}
+		\lipsum[1-2]
+	\end{wineBox}
+\section{Se box}
+\begin{tcolorbox}[base={Your Title}]
+	Your content goes here.
+\end{tcolorbox}
+
+\section{Water mark box}
+\tcbset{colback=red!5!white,colframe=red!75!black,fonttitle=\bfseries}
+\begin{tcolorbox}[enhanced,title=My title,watermark text=My Watermark]
+	\lipsum[1]
+	\tcblower
+	\lipsum[2]
+\end{tcolorbox}
+
+\section{Water mark com }
+\tcbset{colback=red!5!white,colframe=red!75!black,fonttitle=\bfseries}
+\begin{tcolorbox}[enhanced,title=My title,
+	watermark tikz={\draw[line width=2mm] circle (1cm)
+		node{\fontfamily{ptm}\fontseries{b}\fontsize{20mm}{20mm}\selectfont ?};}]
+	\lipsum[1]
+	\tcblower
+	\lipsum[2]
+\end{tcolorbox}
+
+
+\section{Water mark com  transparencia}
+\tcbset{enhanced,colback=red!5!white,colframe=red!75!black,fonttitle=\bfseries,
+	watermark text=Watermark,nobeforeafter,width=(\linewidth-2mm)/2}
+\begin{tcolorbox}[title=Opacity 1.00,watermark opacity=1.00]
+	\lipsum[2]
+\end{tcolorbox}\hfill%
+\begin{tcolorbox}[title=Opacity 0.50,watermark opacity=0.50]
+	\lipsum[2]
+\end{tcolorbox}%
+
+\section{Water mark com zoom}
+\tcbset{enhanced,colback=red!5!white,colframe=red!75!black,fonttitle=\bfseries,
+	watermark text=Watermark,nobeforeafter,width=(\linewidth-2mm)/2}
+\begin{tcolorbox}[title=Zoom 1.0,watermark zoom=1.0]
+	\lipsum[2]
+\end{tcolorbox}\hfill%
+\begin{tcolorbox}[title=Zoom 0.5,watermark zoom=0.5]
+	\lipsum[2]
+\end{tcolorbox}%
+
+\section{xxxx}
+\tcbset{colback=red!5!white,colframe=red!75!black,fonttitle=\bfseries,width=\linewidth}
+\begin{tcolorbox}[enhanced,title=My title,watermark text=My Watermark,
+	watermark color=yellow!50!red]
+	\lipsum[1]
+\end{tcolorbox}
+
+\section{Lower part}
+\tcbset{enhanced,colframe=red!50!black,text and listing}
+\begin{tcblisting}{}
+	Donau\-dampf\-schiff\-fahrts\-ka\-pi\-t\"ans\-m\"ut\-zen\-fran\-sen
+\end{tcblisting}
+\bigskip
+
+\tcbset{enhanced,colframe=red!50!black,text and listing}
+\begin{tcblisting}{clip lower}
+	Donau\-dampf\-schiff\-fahrts\-ka\-pi\-t\"ans\-m\"ut\-zen\-fran\-sen
+\end{tcblisting}
+
+\section{Border line option}
+\begin{tcolorbox}[enhanced,title=Rounded corners,fonttitle=\bfseries,boxsep=5pt,
+	arc=8pt,
+	borderline={0.5pt}{0pt}{red},
+	borderline={0.5pt}{5pt}{blue,dotted},
+	borderline={0.5pt}{-5pt}{green} ]
+	This is a tcolorbox.
+\end{tcolorbox}
+\bigskip
+\begin{tcolorbox}[enhanced,title=Sharp corners,fonttitle=\bfseries,boxsep=5pt,
+	arc=8pt,sharp corners=downhill,
+	borderline={0.5pt}{0pt}{red},
+	borderline={0.5pt}{5pt}{blue,dotted},
+	borderline={0.5pt}{-5pt}{green} ]
+	This is a tcolorbox.
+\end{tcolorbox}
+
+\section{yy}
+% \usepackage{lipsum}
+\begin{tcolorbox}[enhanced,arc=3mm,boxrule=1.5mm,
+	frame hidden,colback=blue!10!white,
+	borderline={1mm}{0mm}{blue,dotted} ]
+	\lipsum[2]
+\end{tcolorbox}
+
+\section{zzz}
+\tcbset{enhanced,nobeforeafter,width=4cm,fonttitle=\bfseries}
+\begin{tcolorbox}[show bounding box,title=Normal]
+	This is a tcolorbox.
+\end{tcolorbox}%
+\begin{tcolorbox}[show bounding box=blue,title=Shadow,drop fuzzy shadow]
+	This is a tcolorbox.
+\end{tcolorbox}%
+\begin{tcolorbox}[show bounding box=green,title=Enlarged,drop fuzzy shadow,
+	enlarge by=2mm]
+	This is a tcolorbox.
+\end{tcolorbox}
+
+\newpage
+\section{Styles para uso}
+\begin{alertbox}[title=Aviso]
+	\lipsum[1][1]
+	
+	\lipsum[1]
+\end{alertbox}
+
+\begin{tipbox}[title=Aviso]
+	\lipsum[1][1]
+	
+	\lipsum[1]
+\end{tipbox}
+
+
+\section{Multicol}
+% \usepackage{lipsum,multicol} % preamble
+\small
+\begin{multicols}{3} %required package multicol
+	\begin{tcolorbox}[enhanced jigsaw,breakable,size=small,	width=\linewidth,
+		colback=red!5!white,colframe=red!75!black,fonttitle=\bfseries,
+		title=My breakable box,
+		pad at break=2mm,drop fuzzy shadow,
+		height fixed for=all, break at=11.4cm ]
+		\lipsum[1-3]
+	\end{tcolorbox}
+\end{multicols}
+
+
+
+
+\end{document}

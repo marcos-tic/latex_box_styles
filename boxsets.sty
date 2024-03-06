@@ -1,0 +1,339 @@
+\RequirePackage{xcolor}
+\RequirePackage{tikz}
+\RequirePackage{lipsum}
+\RequirePackage[most]{tcolorbox}
+
+%%------------------------- inicio alertbox de aviso
+\definecolor{orang}{RGB}{255,155,0}
+\newtcolorbox{alertbox}[1][]{
+	enhanced jigsaw,colback=white,colframe=orang,coltitle=orang,
+	fonttitle=\bfseries\LARGE,
+	sharp corners,
+	detach title,
+	leftrule=22mm,
+	width=\linewidth, %largura do box
+	% What you need %%%%%%%%%%%%
+	underlay unbroken and first={\node[below,text=black,anchor=east]
+		at ([xshift=-22.5pt]interior.base west) {\Huge\textbf{\textcolor{white}{\hfill\faIcon{exclamation}\hfill}}};},
+	%%%%%%%%%%%%%%%%%%%%%%%%
+	breakable,pad at break=1mm,
+	before skip = 0.2cm,    % add extra space before the box
+	after skip = 0.5cm,    % add extra space after the box
+	#1,
+	code={\ifdefempty{\tcbtitletext}{}{\tcbset{before upper={\tcbtitle\par\medskip}}}},
+}
+%---------------------- fim alertbox de aviso 
+
+%%------------------------- inicio alertbox de dica
+\definecolor{green}{RGB}{0,128,0}
+\newtcolorbox[auto counter,number within=section]{tipbox}[1][]{
+	enhanced jigsaw,colback=white,colframe=green,coltitle=orang,
+	fonttitle=\bfseries\sffamily,
+	sharp corners,
+	detach title,
+	leftrule=22mm,
+	width=\linewidth, %largura do box
+	drop fuzzy shadow,
+	% What you need %%%%%%%%%%%%
+	underlay unbroken and first={\node[below,text=black,anchor=east]
+		at ([xshift=-20pt]interior.base west) {\Huge\textbf{\textcolor{white}{\faIcon[regular]{lightbulb}}}};},
+	%%%%%%%%%%%%%%%%%%%%%%%%
+	breakable,pad at break=1mm,
+	before skip = 0.2cm,    % add extra space before the box
+	after skip = 0.5cm,    % add extra space after the box
+	#1,
+	code={\ifdefempty{\tcbtitletext}{}{\tcbset{before upper={\tcbtitle\par\medskip}}}},
+}
+%---------------------- fim alertbox de dica
+
+
+
+
+\definecolor{gre}{RGB}{101, 191, 127}
+\definecolor{gree}{RGB}{7, 135, 44}
+\newtcolorbox{defi}{colback=green!10,enhanced,title=Definition,
+	
+	attach boxed title to top left={xshift=-4mm},boxrule=0pt,after skip=1cm,before skip=1cm,right skip=0cm,breakable,fonttitle=\bfseries,toprule=0pt,bottomrule=0pt,rightrule=0pt,leftrule=4pt,arc=0mm,skin=enhancedlast jigsaw,sharp corners,colframe=gree,colbacktitle=gre,boxed title style={
+		
+		frame code={
+			
+			\fill[gre](frame.south west)--(frame.north west)--(frame.north east)--([xshift=3mm]frame.east)--(frame.south east)--cycle;
+			
+			\draw[line width=1mm,gre]([xshift=2mm]frame.north east)--([xshift=5mm]frame.east)--([xshift=2mm]frame.south east);
+			
+			
+			
+			\draw[line width=1mm,gre]([xshift=5mm]frame.north east)--([xshift=8mm]frame.east)--([xshift=5mm]frame.south east);
+			
+			\fill[green!40](frame.south west)--+(4mm,-2mm)--+(4mm,2mm)--cycle;
+			
+		}
+		
+	}
+	
+}
+
+
+
+\RequirePackage[most]{tcolorbox}
+
+\tcbset {
+	base/.style={
+		arc=0mm,
+		bottomtitle=0.5mm,
+		boxrule=0mm,
+		colbacktitle=black!10!white,
+		coltitle=black,
+		fonttitle=\bfseries,
+		left=2.5mm,
+		leftrule=1mm,
+		right=3.5mm,
+		title={#1},
+		toptitle=0.75mm,
+	}
+}
+
+\definecolor{brandblue}{rgb}{0.34, 0.7, 1}
+\newtcolorbox{mainbox}[1]{
+	colframe=brandblue,
+	base={#1}
+}
+
+\newtcolorbox{subbox}[1]{
+	colframe=black!30!white,
+	base={#1}
+}
+
+
+\newtcolorbox{eqbox}[1][]
+{
+	colback=gray!10,
+	arc=0pt,
+	boxrule=0pt,
+	title=#1 % I would like to make this (one of these in general) assignment optional depending on #1, #2...
+}
+
+\newenvironment{boxenv}[1][]{
+	\begin{eqbox}[#1]
+		\[
+	}{
+		\]
+	\end{eqbox}
+}
+
+
+%Inicio%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% setting the font as Noto Sans
+\setlength\parindent{0pt}   % killing indentation for all the text
+%\setstretch{1.3}            % setting line spacing to 1.3
+\setlength\columnsep{0.25in} % setting length of column separator
+\pagestyle{empty}
+\definecolor{main}{HTML}{5989cf}    % setting main color to be used
+\definecolor{sub}{HTML}{cde4ff}     % setting sub color to be used
+
+\tcbset{
+	sharp corners,
+	colback = white,
+	before skip = 0.2cm,    % add extra space before the box
+	after skip = 0.5cm      % add extra space after the box
+}                           % setting global options for tcolorbox
+
+% You can copy any following box you like to your code.
+\newtcolorbox{boxA}{
+	fontupper = \bf,
+	boxrule = 1.5pt,
+	colframe = black % frame color
+}
+
+\newtcolorbox{boxB}{
+	fontupper = \bf\color{main}, % font color
+	boxrule = 1.5pt,
+	colframe = main,
+	rounded corners,
+	arc = 5pt   % corners roundness
+}
+
+\newtcolorbox{boxC}{
+	colback = sub, % background color
+	boxrule = 0pt  % no borders
+}
+
+\newtcolorbox{boxD}{
+	colback = sub,
+	colframe = main,
+	boxrule = 0pt,
+	toprule = 3pt, % top rule weight
+	bottomrule = 3pt % bottom rule weight
+}
+
+\newtcolorbox{boxE}{
+	enhanced, % for a fancier setting,
+	boxrule = 0pt, % clearing the default rule
+	borderline = {0.75pt}{0pt}{main}, % outer line
+	borderline = {0.75pt}{2pt}{sub} % inner line
+}
+
+\newtcolorbox{boxF}{
+	colback = sub,
+	enhanced,
+	boxrule = 1.5pt,
+	colframe = white, % making the base for dash line
+	borderline = {1.5pt}{0pt}{main, dashed} % add "dashed" for dashed line
+}
+
+\newtcolorbox{boxG}{
+	enhanced,
+	boxrule = 0pt,
+	colback = sub,
+	borderline west = {1pt}{0pt}{main},
+	borderline west = {0.75pt}{2pt}{main},
+	borderline east = {1pt}{0pt}{main},
+	borderline east = {0.75pt}{2pt}{main}
+}
+
+\newtcolorbox{boxH}{
+	colback = sub,
+	colframe = main,
+	boxrule = 0pt,
+	leftrule = 6pt % left rule weight
+}
+
+\newtcolorbox{boxI}{
+	colback = sub,
+	colframe = main,
+	boxrule = 0pt,
+	toprule = 6pt % top rule weight
+}
+
+\newtcolorbox{boxJ}{
+	sharpish corners, % better drop shadow
+	colback = sub,
+	colframe = main,
+	boxrule = 0pt,
+	toprule = 4.5pt, % top rule weight
+	enhanced,
+	fuzzy shadow = {0pt}{-2pt}{-0.5pt}{0.5pt}{black!35} % {xshift}{yshift}{offset}{step}{options} 
+}
+
+\newtcolorbox{boxK}{
+	sharpish corners, % better drop shadow
+	boxrule = 0pt,
+	toprule = 4.5pt, % top rule weight
+	enhanced,
+	fuzzy shadow = {0pt}{-2pt}{-0.5pt}{0.5pt}{black!35} % {xshift}{yshift}{offset}{step}{options} 
+}
+
+\newtcolorbox{boxL}{
+	fontupper = \color{main},
+	rounded corners,
+	arc = 6pt,
+	colback = sub,
+	colframe = main!50,
+	boxrule = 0pt,
+	bottomrule = 4.5pt
+}
+
+\newtcolorbox{boxM}{
+	fontupper = \color{white},
+	rounded corners,
+	arc = 6pt,
+	colback = main!80,
+	colframe = main,
+	boxrule = 0pt,
+	bottomrule = 4.5pt,
+	enhanced,
+	fuzzy shadow = {0pt}{-3pt}{-0.5pt}{0.5pt}{black!35}
+}
+%fim%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%inicio 2
+
+% Definir as cores personalizadas
+
+\definecolor{amarilloD}{RGB}{251,237,121}
+\definecolor{grisamarillo}{RGB}{248,248,245}
+
+\newtcolorbox{wwbox}[1][]{%
+	arc=0mm,breakable,
+	drop fuzzy shadow,
+	enhanced,
+	colback=grisamarillo,
+	boxrule=0pt,
+	top=3mm,
+	enlarge top by=\baselineskip/2+1mm,
+	enlarge top at break by=0mm,pad at break=2mm,
+	fontupper=\normalsize,
+	overlay unbroken={\draw[color=amarilloD,line width=0.5pt] (frame.north west)
+		--([xshift=0pt]frame.north east)
+		--([xshift=0pt]frame.south east)
+		--([xshift=0pt]frame.south west)--(frame.north west);
+	},
+	overlay first={\draw[color=amarilloD,line width=0.5pt] (frame.north west)
+		--([xshift=0pt]frame.north east)
+		--([xshift=0pt]frame.south east)
+		--([xshift=0pt]frame.south west)--(frame.north west);
+	},
+	overlay last={\draw[color=amarilloD,line width=0.5pt] (frame.north west)
+		--([xshift=0pt]frame.north east)
+		--([xshift=0pt]frame.south east)
+		--([xshift=0pt]frame.south west)--(frame.north west);}
+	#1}
+%%%%%%%%%%%fim 2
+
+
+
+%inicio color box com counter [Teorema]
+\newtcolorbox[
+auto counter,
+number within=section,
+]{bbb}[2][]{
+	enhanced,
+	coltitle=black,
+	fonttitle=\bfseries,
+	attach title to upper={\ },
+	label type=theorem,
+	title=Theorem~\thetcbcounter: (#2), #1
+}
+%%%%%%%%%%%fim color box com counter
+
+
+%inicio meu box
+% blanker: Define o estilo da caixa sem preenchimento
+% before skip=6pt: Adiciona um espaço vertical de 6 pontos antes da caixa
+% after skip=6pt: Adiciona um espaço vertical de 6 pontos após a caixa
+% borderline west={3mm}{0pt}{red}: Cria uma borda à esquerda com 3mm de largura, sem margem, e de cor vermelha
+\newtcolorbox[]{meubox}{
+	blanker,
+	before skip=6pt,
+	after skip=6pt,
+	borderline west={3mm}{0pt}{red}}
+%%%fim meu box
+
+
+% inicio %%%%%%%%%%%%%%%%%%%%%%%%
+\newtcolorbox{wineBox}[1]{
+	enhanced, % configurações avançadas para o tcolorbox
+	colback=white,
+	colframe=gray,
+	coltitle=black,
+	fonttitle=\bfseries\LARGE,
+	detach title,
+	boxrule=2pt,
+	leftrule=0pt,
+	top=1mm,
+	attach title to upper={\par},
+	sharp corners,
+	borderline west={5pt}{0pt}{red!70!blue},
+	title=#1
+}
+% fim %%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+%color box base inicio %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%color box base fim %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
